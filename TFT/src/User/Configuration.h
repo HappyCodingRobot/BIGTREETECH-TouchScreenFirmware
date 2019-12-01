@@ -129,7 +129,7 @@
  * It is friendly to display long file name, but the model preview feature is not available
  * Disable this if you want to use the model preview feature
  */
-//#define GCODE_LIST_MODE
+#define GCODE_LIST_MODE
 
 
 //-------RESET SETTINGS & TOUCH SCREEN CALIBRATION------||
@@ -137,7 +137,7 @@
 
 
 // SD support
-#define ONBOARD_SD_SUPPORT
+//#define ONBOARD_SD_SUPPORT
 #ifdef ONBOARD_SD_SUPPORT
   #define M27_AUTOREPORT                      // Disable M27 polling if you enable enable AUTO_REPORT_SD_STATUS in Marlin
   #define M27_REFRESH                3        // Time in sec for M27 command
