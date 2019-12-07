@@ -36,7 +36,7 @@
 #define FAN_NUM      1    // set in 1~6
 
 //                       PLA      PETG       ABS     "CUSTOM1" "CUSTOM2"
-#define PREHEAT_BED      {55,      65,       70,        55,       55}
+#define PREHEAT_BED      {60,      65,       70,        55,       55}
 #define PREHEAT_HOTEND   {205,     220,      230,       200,      200}
 #define PREHEAT_TEXT     {"PLA",  "PETG",   "ABS",     "T2:",    "T3:"}
 
