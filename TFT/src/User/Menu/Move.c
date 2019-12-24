@@ -24,13 +24,13 @@
 #ifdef INVERT_ZAXIS
   #define LABEL_ZAXIS_UP LABEL_Z_DEC
   #define LABEL_ZAXIS_DOWN LABEL_Z_INC
-  #define ZGCODE_UP "G1 Z%.1f\n"
-  #define ZGCODE_DOWN "G1 Z-%.1f\n"
+  #define ZGCODE_UP "G1 Z-%.1f\n"
+  #define ZGCODE_DOWN "G1 Z%.1f\n"
 #else
   #define LABEL_ZAXIS_UP LABEL_Z_INC
   #define LABEL_ZAXIS_DOWN LABEL_Z_DEC
-  #define ZGCODE_UP "G1 Z-%.1f\n"
-  #define ZGCODE_DOWN "G1 Z%.1f\n"
+  #define ZGCODE_UP "G1 Z%.1f\n"
+  #define ZGCODE_DOWN "G1 Z-%.1f\n"
 #endif
 
 //1 title, ITEM_PER_PAGE item

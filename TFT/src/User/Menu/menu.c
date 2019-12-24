@@ -146,7 +146,7 @@ const GUI_RECT reminderRect = {0, 0, LCD_WIDTH, TITLE_END_Y};
 const GUI_RECT reminderRectSS ={0, 0, LCD_WIDTH, SS_TITLE_END_Y};
 static REMINDER reminder = {{0, 0, LCD_WIDTH, TITLE_END_Y}, 0, STATUS_UNCONNECT, LABEL_UNCONNECTED};
 static REMINDER volumeReminder = {{0, 0, LCD_WIDTH, TITLE_END_Y}, 0, STATUS_IDLE, LABEL_BACKGROUND};
-static REMINDER busySign = {{LCD_WIDTH - 5, 0, LCD_WIDTH, 5}, 0, STATUS_BUSY, LABEL_BUSY};
+static REMINDER busySign = {{LCD_WIDTH - 8, 0, LCD_WIDTH, 8}, 0, STATUS_BUSY, LABEL_BUSY};
 
 
 void reminderMessage(int16_t inf, SYS_STATUS status)

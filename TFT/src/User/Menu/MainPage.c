@@ -11,7 +11,8 @@ LABEL_READY,
     {ICON_HOME_MOVE,            LABEL_UNIFIEDMOVE},
     {ICON_EXTRUDE,              LABEL_EXTRUDE},
     {ICON_PRINT,                LABEL_PRINT},
-    {ICON_GCODE,                LABEL_GCODE},
+//  {ICON_GCODE,                LABEL_GCODE},
+    {ICON_CUSTOM,               LABEL_CUSTOM},
     {ICON_STOP,                 LABEL_EMERGENCYSTOP},
     {ICON_SETTINGS,             LABEL_SETTINGS},
     {ICON_BACK,                 LABEL_BACK},}
@@ -54,7 +55,8 @@ void menuMain(void)
         case KEY_ICON_1: infoMenu.menu[++infoMenu.cur] = menuUnifiedMove;     break;      
         case KEY_ICON_2: infoMenu.menu[++infoMenu.cur] = menuExtrude;         break;
         case KEY_ICON_3: infoMenu.menu[++infoMenu.cur] = menuPrint;           break;
-        case KEY_ICON_4: infoMenu.menu[++infoMenu.cur] = menuSendGcode;       break;
+//        case KEY_ICON_4: infoMenu.menu[++infoMenu.cur] = menuSendGcode;       break;
+        case KEY_ICON_4: infoMenu.menu[++infoMenu.cur] = menuCustom;       break;
         case KEY_ICON_5: { storeCmd("M112\n");} break;  // Emergency Stop : Used for emergency stopping, a reset is required to return to operational mode.
                                                         // it may need to wait for a space to open up in the command queue.
                                                         // Enable EMERGENCY_PARSER in Marlin Firmware for an instantaneous M112 command.
