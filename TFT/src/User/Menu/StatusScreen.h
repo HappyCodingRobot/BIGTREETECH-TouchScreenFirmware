@@ -4,8 +4,7 @@
 
 
 //Colors for drawing the icons
-//#define GANTRYLBL_BKCOLOR   0x2187
-#define GANTRYLBL_BKCOLOR   BLACK
+#define GANTRYLBL_BKCOLOR   0x2187
 #define GANTRYLBL_COLOR     WHITE
 #define HEADING_COLOR       WHITE
 #define VAL_COLOR           BLACK
