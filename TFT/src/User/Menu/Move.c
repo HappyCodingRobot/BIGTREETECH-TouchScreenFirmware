@@ -31,7 +31,7 @@
     #define LABEL_ZAXIS_UP LABEL_Z_INC
     #define LABEL_ZAXIS_DOWN LABEL_Z_DEC
     #define ZGCODE_UP "G1 Z%.1f\n"
-    #define ZGCODE_DOWN "G1 Z%.1f\n"
+    #define ZGCODE_DOWN "G1 Z-%.1f\n"
   #endif
 
 #endif
@@ -101,7 +101,7 @@ void menuMove(void)
     moveItems.items[1].label.index = LABEL_Y_INC;
     moveItems.items[5].label.index = LABEL_Y_DEC;
   }
-    if(infoSettings.invert_zaxis == 1){
+  if(infoSettings.invert_zaxis == 1){
     moveItems.items[0].label.index = LABEL_Z_DEC;
     moveItems.items[2].label.index = LABEL_Z_INC;
   }
@@ -139,7 +139,7 @@ void menuMove(void)
     {
       #ifdef ALTERNATIVE_MOVE_MENU
       case KEY_ICON_0:
-      #ifdef MENU_LIST_MODE
+        #ifdef MENU_LIST_MODE
           if(infoSettings.invert_zaxis == 1){
             storeCmd(ZGCODE_DEC, item_move_len[item_move_len_i]);
           }
@@ -147,7 +147,7 @@ void menuMove(void)
             storeCmd(ZGCODE_INC, item_move_len[item_move_len_i]);
           }
         #else
-      storeCmd(ZGCODE_DOWN,   item_move_len[item_move_len_i]);  break;
+          storeCmd(ZGCODE_DOWN,   item_move_len[item_move_len_i]);
         #endif
         break;
 
@@ -173,7 +173,7 @@ void menuMove(void)
             storeCmd(ZGCODE_DEC, item_move_len[item_move_len_i]);
           }
         #else
-          storeCmd(ZGCODE_UP,   item_move_len[item_move_len_i]);  break;
+          storeCmd(ZGCODE_UP,   item_move_len[item_move_len_i]);
         #endif
         break;
 
@@ -214,7 +214,7 @@ void menuMove(void)
       case KEY_ICON_6: storeCmd(ZGCODE_DOWN,   item_move_len[item_move_len_i]); break;
       case KEY_ICON_7: infoMenu.cur--; break;
       default:break;  
-      #endif
+    #endif
             
     }
     loopProcess();
