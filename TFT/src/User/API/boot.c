@@ -19,6 +19,7 @@ const char iconBmpName[][32]={
 "PowerSupply", "Custom", "Custom0", "Custom1", "Custom2", "Custom3", "Custom4", "Custom5", "Custom6", "Home_Move", "Heat_Fan",
 "ManualLevel", "CoolDown", "SilentOff","StatusNozzle","StatusBed","StatusFan","MainMenu","StatusSpeed","StatusFlow",
 "parametersetting", "global_nozzle", "global_bed", "ledcolor",
+"printing_nozzle", "printing_bed", "printing_fan","printing_timer","printing_layer","printing_speed","printing_flow",
 }; 
 
 u8 scanUpdateFile(void)
@@ -57,8 +58,10 @@ bool bmpDecode(char *bmp, u32 addr)
     return false;
 
   f_read(&bmpFile, magic, 2 ,&mybr);  
-  if (memcmp(magic, "BM", 2))  
+  if (memcmp(magic, "BM", 2)){
+    f_close(&bmpFile);
     return false;
+    }
   
   f_lseek(&bmpFile, 10);  
   f_read(&bmpFile, &offset, sizeof(int),&mybr);  
@@ -69,8 +72,10 @@ bool bmpDecode(char *bmp, u32 addr)
 
   f_lseek(&bmpFile, 28);  
   f_read(&bmpFile, &bpp, sizeof(short),&mybr);  
-  if(bpp<24)
+  if(bpp<24){
+    f_close(&bmpFile);
     return false;
+    }
   bpp >>=3; 
   bytePerLine=w*bpp;     
   if(bytePerLine%4 !=0) //bmp

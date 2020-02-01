@@ -100,7 +100,6 @@ void menuDrawItem(const ITEM *item, uint8_t positon)
 
 void menuDrawIconOnly(const ITEM *item, uint8_t positon)
 {
-  uint8_t *content = labelGetAddress(&item->label);
   const GUI_RECT *rect = rect_of_key + positon;
   if(item->icon != ICON_BACKGROUND)
     ICON_ReadDisplay(rect->x0, rect->y0, item->icon);
@@ -119,6 +118,13 @@ void menuDrawIconOnly(const ITEM *item, uint8_t positon)
   {
     ListItem_Display(rect, position, item, false);
   }
+}
+void menuRefreshListPage(void){
+ for (uint8_t i = 0; i < ITEM_PER_PAGE; i++)
+    {
+      menuDrawListItem(&curListItems->items[i], i);
+    }
+
 }
 
 static REMINDER reminder = {{0, 0, LCD_WIDTH, TITLE_END_Y}, 0, STATUS_UNCONNECT, LABEL_UNCONNECTED};
@@ -262,6 +268,11 @@ void menuDrawPage(const MENUITEMS *menuItems)
   for (i = 0; i < ITEM_PER_PAGE; i++)
   {
     menuDrawItem(&menuItems->items[i], i);
+    #ifdef RAPID_SERIAL_COMM
+      if(isPrinting() == true){
+        loopBackEnd();	 //perform backend printing loop between drawing icons to avoid printer idling
+      }
+    #endif
   }
 }
 
@@ -343,6 +354,12 @@ KEY_VALUES menuKeyGetValue(void)
   }
 }
 
+//Get the top left point of the corresponding icon position)
+GUI_POINT getIconStartPoint(int index){
+  GUI_POINT p = {rect_of_key[index].x0,rect_of_key[index].y0};
+  return p;
+}
+
 void loopBackEnd(void)
 {
   getGcodeFromFile();                 //Get Gcode command from the file to be printed
@@ -382,11 +399,12 @@ void loopFrontEnd(void)
   loopVolumeReminderClear();
 
   loopBusySignClear();                //Busy Indicator clear
+
+  temp_Change();
 }
 
 void loopProcess(void)
 {
-  temp_Change();
   loopBackEnd();
   loopFrontEnd();
 }

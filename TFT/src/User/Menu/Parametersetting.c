@@ -306,8 +306,8 @@ void parametersetting(void)
 
 void temp_Change(void)
 {
+    if(infoSettings.persistent_info != 1) return;
     //static FP_MENU NUM[MAX_MENU_DEPTH];
-    char tempstr[10];
     static int16_t compare [2];
   
     if(infoHost.connected == false || infoMenu.menu[infoMenu.cur] == menuPrinting)    return;
@@ -328,7 +328,8 @@ void temp_Change(void)
 
 void show_GlobalInfo(void)
 {
-    if(infoHost.connected == false)    return;
+    if(infoSettings.persistent_info != 1) return;
+    if(infoHost.connected == false || infoMenu.menu[infoMenu.cur] == menuPrinting)    return;
     if(infoMenu.menu[infoMenu.cur] == menuMove || infoMenu.menu[infoMenu.cur] == menuStatus) return;
     drawGlobalInfo();
 
