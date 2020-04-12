@@ -7,20 +7,20 @@ void Hardware_GenericInit(void)
 {
   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
   Delay_init(F_CPUM);
-  OS_TimerInit(999, F_CPUM-1);  // System clock timer, cycle 1ms
+  OS_TimerInit(1000-1, F_CPUM-1);  // System clock timer, cycle 1ms
+
+  #ifdef DISABLE_JTAG
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
+    GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE); // disable JTAG, enable SWD
+  #endif
 
   #ifdef DISABLE_DEBUG
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO , ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
     GPIO_PinRemapConfig(GPIO_Remap_SWJ_Disable, ENABLE); //disable JTAG & SWD
   #endif
 
-  #ifdef DISABLE_JTAG
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO , ENABLE);
-    GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
-  #endif
-
   #ifdef MKS_32_V1_4
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
     GPIO_PinRemapConfig(GPIO_Remap_USART2, ENABLE);
   #endif
 
@@ -52,7 +52,7 @@ void Hardware_GenericInit(void)
     FIL_Runout_Init();
   #endif
 
-  #ifdef LED_color_PIN
+  #ifdef LED_COLOR_PIN
     knob_LED_Init();
   #else
     #define STARTUP_KNOB_LED_COLOR 1
@@ -66,8 +66,8 @@ void Hardware_GenericInit(void)
     TSC_Calibration();
     storePara();
   }
-  #ifdef LCD_LED_PIN
-  Set_LCD_Brightness(LCD_BRIGHTNESS[infoSettings.lcd_brightness]);
+  #ifdef LCD_LED_PWM_CHANNEL
+    Set_LCD_Brightness(LCD_BRIGHTNESS[infoSettings.lcd_brightness]);
   #endif
   GUI_RestoreColorDefault();
   infoMenuSelect();

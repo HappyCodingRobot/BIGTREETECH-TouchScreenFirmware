@@ -17,7 +17,7 @@ const char *const ignoreEcho[] = {
   "echo:  M",
 };
 
-bool portSeen[_USART_CNT] = {false, false, false, false, false, false};
+bool portSeen[_UART_CNT] = {false, false, false, false, false, false};
 
 void setCurrentAckSrc(uint8_t src)
 {
@@ -118,6 +118,9 @@ void parseACK(void)
         updateNextHeatCheckTime();
         infoHost.connected = true;
         storeCmd("M115\n");
+        storeCmd("M503 S0\n");
+        storeCmd("M92\n"); // Steps/mm of extruder is an important parameter for Smart filament runout
+                           // Avoid can't getting this parameter due to disabled M503 in Marlin
     }
 
     // Gcode command response
@@ -198,7 +201,7 @@ void parseACK(void)
           }
         }
       }
-      else if(ack_seen("Count E:")) // parse actual position, response of "M114"
+      else if(ack_seen("Count E:")) // Parse actual extruder position, response of "M114 E\n", required "M114_DETAIL" in Marlin
       {
         coordinateSetAxisActualSteps(E_AXIS, ack_value());
       }
@@ -379,7 +382,7 @@ void parseACK(void)
     else if (!ack_seen("ok"))
     {
       // make sure we pass on spontaneous messages to all connected ports (since these can come unrequested)
-      for (int port = 0; port < _USART_CNT; port++)
+      for (int port = 0; port < _UART_CNT; port++)
       {
         if (port != SERIAL_PORT && portSeen[port])
         {
@@ -399,7 +402,7 @@ void parseRcvGcode(void)
 {
   #ifdef SERIAL_PORT_2
     uint8_t i = 0;
-    for(i = 0; i < _USART_CNT; i++)
+    for(i = 0; i < _UART_CNT; i++)
     {
       if(i != SERIAL_PORT && infoHost.rx_ok[i] == true)
       {
