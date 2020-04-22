@@ -143,8 +143,8 @@
 #define FAN_NUM      1    // set in 1~6
 
 //                       PLA      PETG       ABS
-#define PREHEAT_BED      {60,      65,       70}
-#define PREHEAT_HOTEND   {205,     225,      230}
+#define PREHEAT_BED      {60,      70,       70}
+#define PREHEAT_HOTEND   {205,     230,      230}
 
 #define HEAT_MAX_TEMP    { 80,    250,       250,       250,       250,       250,       250}    //max temperature can be set
 #define HEAT_SIGN_ID     {"B:",   "T0:",     "T1:",     "T2:",     "T3:",     "T4:",     "T5:"}
@@ -300,9 +300,9 @@
 #define CUSTOM_6_LABEL "EEPROM Defaults"
 #define CUSTOM_6_GCODE "M502\n"
 #define CUSTOM_7_LABEL "Unload material"
-#define CUSTOM_7_GCODE "G92 E0\nG1 E-400 F2000\nG92 E0\n"
+#define CUSTOM_7_GCODE "G92 E0\nG1 E-200 F2000\nG1 E-400 F2000\nG92 E0\n" // M702
 #define CUSTOM_8_LABEL "Load material"
-#define CUSTOM_8_GCODE "G92 E0\nG1 E380 F1000\nG92 E0\n"
+#define CUSTOM_8_GCODE "G92 E0\nG1 E200 F2500\nG1 E380 F1000\nG92 E0\n"   // M701
 //#define CUSTOM_9_LABEL "Custom9"
 //#define CUSTOM_9_GCODE "M105\n"
 //#define CUSTOM_10_LABEL "Custom10"
