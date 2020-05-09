@@ -185,11 +185,16 @@
 #define NOZZLE_PAUSE_RETRACT_LENGTH 15   // (mm)
 #define NOZZLE_RESUME_PURGE_LENGTH  16   // (mm)
 #define NOZZLE_PAUSE_X_POSITION     (X_MIN_POS + 10)  // (mm) Must be an integer
-#define NOZZLE_PAUSE_Y_POSITION     (Y_MIN_POS + 10)  // (mm) Must be an integer
-#define NOZZLE_PAUSE_Z_RAISE        20   // (mm)
-#define NOZZLE_PAUSE_E_FEEDRATE     6000 // (mm/min) retract & purge feedrate
-#define NOZZLE_PAUSE_XY_FEEDRATE    6000 // (mm/min) X and Y axes feedrate
+#define NOZZLE_PAUSE_Y_POSITION     (Y_MAX_POS - 50)  // (mm) Must be an integer
+#define NOZZLE_PAUSE_Z_RAISE        10   // (mm)
+#define NOZZLE_PAUSE_E_FEEDRATE     2000 // (mm/min) retract & purge feedrate
+#define NOZZLE_PAUSE_XY_FEEDRATE    3000 // (mm/min) X and Y axes feedrate
 #define NOZZLE_PAUSE_Z_FEEDRATE     600  // (mm/min) Z axis feedrate
+/* M601 ; pause print
+ * PrusaSlicer can add this on certain height. Marlin actually does not support this.
+ * Acts here like manual pause
+ */
+#define NOZZLE_PAUSE_M601
 
 /**
  * Auto Save Load Leveling Data
@@ -324,7 +329,8 @@
  * Enable Start & End G-code in SETTINGS -> FEATURE menu.
  */
 // Start G-code - run this G-code before starting print
-#define PRINT_START_GCODE "G28 XY R10\n" // Raise Z 10mm before homing X & Y
+//#define PRINT_START_GCODE "G28 XY R10\n" // Raise Z 10mm before homing X & Y
+#define PRINT_START_GCODE "M18 S300\n" // set stepper timeout to higher value
 
 // End G-code - run this G-code after finishing print
 #define PRINT_END_GCODE "G90\nG1 E-4\nG92 E0\nM18\n" // Switch to absolute positioning, reduce filament pressure by performing small retract, reset extruder position, disable steppers
